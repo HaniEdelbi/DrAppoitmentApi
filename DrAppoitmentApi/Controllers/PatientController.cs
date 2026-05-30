@@ -70,5 +70,18 @@ namespace DrAppoitmentApi.Controllers
             }
             return Ok();
         }
+
+        [HttpGet("doctor/{doctorId}")]
+        public async Task<IActionResult> GetAppointmentsByDoctor(int doctorId)
+        {
+            var appointments = await _context.Patients
+                .Where(p => p.DoctorId == doctorId)
+                .ToListAsync();
+
+            if (appointments == null || appointments.Count == 0)
+                return NoContent();
+
+            return Ok(appointments);
+        }
     }
 }
