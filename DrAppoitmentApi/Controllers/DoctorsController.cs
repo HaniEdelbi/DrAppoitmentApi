@@ -77,7 +77,10 @@ namespace DrAppoitmentApi.Controllers
             if (d == null)
                 return NotFound("Doctor not found");
 
-            _context.Doctors.Update(doctor);
+            d.Name = doctor.Name;
+            d.Specialty = doctor.Specialty;
+            d.Region = doctor.Region;
+
             try
             {
                 await _context.SaveChangesAsync();
@@ -88,7 +91,6 @@ namespace DrAppoitmentApi.Controllers
             }
             return Ok();
         }
-
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteDoctor(int id)
         {
